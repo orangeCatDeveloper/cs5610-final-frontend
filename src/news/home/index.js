@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
-import { Input, List } from 'antd';
+import { Input, List, Button } from 'antd';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 const { Search } = Input;
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const NewsList = () => {
-    
     const [allNews, setAllNews] = useState([]);
-    const newsResponse = axios.get(`${BASE_URL}/news`)
-    .then(response => {
-        setAllNews(response.data);
-    })
-    .catch(error => {
-      console.error(error);
-    });
+    const getNews = () => {
+        axios.get(`${BASE_URL}/news`)
+        .then(response => {
+            setAllNews(response.data);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }
+    
     const navigate = useNavigate();
 
     const clickNews = (news) => {
@@ -31,6 +33,7 @@ const NewsList = () => {
     return (
         <div>
             <h4>Home</h4>
+        <Button onClick={getNews}>Fetch News</Button>
         <List
             itemLayout="vertical"
             size="large"

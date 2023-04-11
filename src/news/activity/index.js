@@ -16,19 +16,6 @@ const Activities = () => {
         <Tabs
         defaultActiveKey="2"
         items={
-        //   [AppleOutlined, AndroidOutlined].map((Icon, i) => {
-        //   const id = String(i + 1);
-        //   return {
-        //     label: (
-        //       <span>
-        //         <Icon />
-        //         Tab {id}
-        //       </span>
-        //     ),
-        //     key: id,
-        //     children: `Tab ${id}`,
-        //   };
-        // })
         items
     }
       />
