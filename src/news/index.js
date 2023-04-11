@@ -8,6 +8,7 @@ import NavigationSidebar from "./navigation-sidebar";
 import HomeComponent from "./home";
 import ProfileComponent from "./profile";
 import ActivitiesComponent from "./activity";
+import NewsDetail from "./news-detail";
 import TopbarComponent from "./topbar";
 import LoginComponent from "./login";
 import RegisterComponent from "./register";
@@ -112,6 +113,10 @@ function News() {
                             <Route path="activities" element={<ActivitiesComponent />} />
                             <Route path="login" element={<LoginComponent />} />
                             <Route path="signup" element={<RegisterComponent />} />
+                            <Route
+                                path={`news-detail/:id`}
+                                element={<NewsDetail />}
+                            />
                         </Routes>
                     </Content>
                 </Layout>

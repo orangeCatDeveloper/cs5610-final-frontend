@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { Input, List } from 'antd';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 const { Search } = Input;
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
+
 const SearchCompoent = () => {
   const [searchResults, setSearchResults] = useState([]);
+  const navigate = useNavigate();
+
   const handleSearch = (value) => {
     axios.get(`${BASE_URL}/search?keyword=${value}`)
       .then(response => {
@@ -15,7 +19,17 @@ const SearchCompoent = () => {
         console.error(error);
       });
   };
-  console.log(searchResults);
+
+  const clickNews = (news) => {
+    axios.post(`${BASE_URL}/save`, news)
+      .then(response => {
+        const newsId = response.data._id;
+        navigate(`/news-detail/${newsId}`);
+      })
+      .catch(error => {
+        console.log(`Open news error`);
+      });
+  };
 
   return (
     <div>
@@ -34,6 +48,7 @@ const SearchCompoent = () => {
         renderItem={(item) => (
           <List.Item
             key={item.url}
+            onClick={() => clickNews(item)}
             actions={[]}
             extra={
               <img
