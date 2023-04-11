@@ -1,10 +1,8 @@
 import React from "react";
-import SearchBar from "../search";
 const NewsList = () => {
-    return(
+    return (
         <div>
             <h4>Home</h4>
-            <SearchBar/>
         </div>
 
     )
