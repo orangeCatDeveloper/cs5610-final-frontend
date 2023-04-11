@@ -22,25 +22,16 @@ const Register = () => {
     const onClickHandler = async () => {
         try {
             await dispatch(registerThunk(
-                username,
+                {username,
                 firstName,
                 lastName,
-                
                 password,
-                email,
+                email}
             ))
             // navigate('/profile');
         } catch (e) {
             alert(e);
         }
-        // const newUser = {
-        //     username: values.username,
-        //     firstName: values.firstName,
-        //     lastName: values.lastName,
-        //     email: values.email,
-        //     password: values.password,
-        // }
-        // dispatch(registerThunk(newUser))
     }
     return(
     <div>

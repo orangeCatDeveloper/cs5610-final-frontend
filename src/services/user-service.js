@@ -33,13 +33,19 @@ export const login = async ({ username, password }) => {
   return user;
 };
 
-export const register = async (username, firstName, lastName, password,  email) => {
-  const response = await api.post(`${USERS_URL}/register`, {
-    username,
-    firstName,
-    lastName,
-    password,
-    email
+export const register = async (userInfo) => {
+  const response = await api.post(`${USERS_URL}/register`, userInfo)
+  .then(response => {
+    console.log("Status code:", response.status);
+  })
+  .catch(error => {
+    console.log(error.message)
+    if (error.message.includes("409")) {
+        alert("username already in use! Please change a new one")
+    } else if (error.message.includes("400")) {
+        alert("Please fill in all fields.")
+    }
+    
   });
   const user = response.data;
   return user;
