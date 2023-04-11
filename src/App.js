@@ -7,12 +7,10 @@ import News from './news';
 function App() {
   return (
     <BrowserRouter>
-        <div className='container'>
         <Routes>
           <Route path='/*' element={<News/>}></Route>
           
         </Routes>
-      </div>
     </BrowserRouter>
   );
 }
