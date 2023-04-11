@@ -20,6 +20,10 @@ const Register = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const onClickHandler = async () => {
+        if (!(username && password && firstName && lastName && email)) {
+            alert("Please fill in all fields");
+            return;
+        }
         try {
             await dispatch(registerThunk(
                 {username,
@@ -35,7 +39,7 @@ const Register = () => {
     }
     return(
     <div>
-      <h1>Login Screen</h1>
+      <h1>Register Screen</h1>
       <div>
         <label>Username</label>
         <br />
@@ -44,6 +48,7 @@ const Register = () => {
           type="text"
           value={username}
           onChange={(event) => setUsername(event.target.value)}
+          required
         />
       </div>
       <div>
@@ -53,6 +58,7 @@ const Register = () => {
           type="password"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
+          required
         />
       </div>
       <div>
@@ -63,6 +69,7 @@ const Register = () => {
           type="text"
           value={firstName}
           onChange={(event) => setFirstName(event.target.value)}
+          required
         />
       </div>
       <div>
@@ -73,6 +80,7 @@ const Register = () => {
           type="text"
           value={lastName}
           onChange={(event) => setLastName(event.target.value)}
+          required
         />
       </div>
       <div>
@@ -80,9 +88,10 @@ const Register = () => {
         <br />
         <input
           className="form-control"
-          type="text"
+          type="email"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
+          required
         />
       </div>
       <Button type="primary" htmlType="submit" onClick={onClickHandler}>

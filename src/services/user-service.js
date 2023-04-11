@@ -1,6 +1,6 @@
 import axios from "axios";
-const USERS_URL = "http://localhost:4000/api";
-
+// const USERS_URL = "http://localhost:4000/api";
+const USERS_URL = process.env.REACT_APP_BASE_URL;
 const api = axios.create({
   withCredentials: true,
 });
@@ -24,11 +24,21 @@ export const updateUser = async (user) => {
   return status;
 };
 
-export const login = async ({ username, password }) => {
-  const response = await api.post(`${USERS_URL}/login`, {
-    username,
-    password,
+export const login = async (userInfo) => {
+  console.log("user service login: " + userInfo.username);
+  const response = await api.post(`${USERS_URL}/login`, userInfo)
+  .then(response => {
+    console.log("Status code:", response.status);
+    console.log(response);
+  })
+  .catch(error => {
+    console.log(error.message)
+    if (error.message.includes("401")) {
+        alert("Invalid username or password")
+    }
+    
   });
+  console.log(response);
   const user = response.data;
   return user;
 };

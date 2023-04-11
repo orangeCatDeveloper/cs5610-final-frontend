@@ -17,6 +17,7 @@ import EditProfileComponent from "./profile/edit-profile";
 import profileReducer from "./profile/profile-reducer";
 import userReducer from "../redux/user-reducer";
 import getItem from "../common/util";
+import { ROUTE_PATHS } from "../constants/path";
 import {
     HomeOutlined, UserOutlined, CalendarOutlined, MenuFoldOutlined,
     MenuUnfoldOutlined, SearchOutlined
@@ -27,12 +28,12 @@ const { Header, Sider, Content } = Layout;
 
 const items =
     [
-        getItem('Home', '/home', <HomeOutlined />),
-        getItem('Search', '/search', <SearchOutlined />),
-        getItem('Activities', '/activities', <CalendarOutlined />),
+        getItem('Home', ROUTE_PATHS.HOME, <HomeOutlined />),
+        getItem('Search', ROUTE_PATHS.SEARCH, <SearchOutlined />),
+        getItem('Activities', ROUTE_PATHS.ACTIVITIES, <CalendarOutlined />),
         getItem('User', 'sub1', <UserOutlined />, [
-            getItem('Profile', '/profile'),
-            getItem('Login', '/login'),
+            getItem('Profile', ROUTE_PATHS.PROFILE),
+            getItem('Login', ROUTE_PATHS.LOGIN),
         ]),
 
     ];
@@ -42,25 +43,38 @@ function News() {
     const location = useLocation();
     const [selectedItem, setSelectedItem] = useState('home');
     const [collapsed, setCollapsed] = useState(false);
+    // useEffect(() => {
+    //     const mediaQuery = window.matchMedia("(max-width: 768px)");
+    //     if (mediaQuery.matches) {
+    //         setCollapsed(true);
+    //     } else {
+    //         setCollapsed(false);
+    //     }
+    //     const resizeHandler = () => {
+    //         if (mediaQuery.matches) {
+    //             setCollapsed(true);
+    //         } else {
+    //             setCollapsed(false);
+    //         }
+    //     };
+    //     window.addEventListener("resize", resizeHandler);
+    //     return () => {
+    //         window.removeEventListener("resize", resizeHandler);
+    //     };
+    // }, []);
     useEffect(() => {
-        const mediaQuery = window.matchMedia("(max-width: 768px)");
-        if (mediaQuery.matches) {
-            setCollapsed(true);
+        if (
+          location.pathname === ROUTE_PATHS.HOME ||
+          location.pathname === "/"
+        ) {
+          setSelectedItem(ROUTE_PATHS.HOME);
+        } else if (location.pathname === ROUTE_PATHS.SEARCH) {
+          setSelectedItem(ROUTE_PATHS.SEARCH);
         } else {
-            setCollapsed(false);
+        //   setSelectedItem("");
+          setSelectedItem(location.pathname);
         }
-        const resizeHandler = () => {
-            if (mediaQuery.matches) {
-                setCollapsed(true);
-            } else {
-                setCollapsed(false);
-            }
-        };
-        window.addEventListener("resize", resizeHandler);
-        return () => {
-            window.removeEventListener("resize", resizeHandler);
-        };
-    }, []);
+      }, [location.pathname]);
 
     const onClick = e => {
         setSelectedItem(e.key);
@@ -103,13 +117,13 @@ function News() {
                         }}
                     >
                         <Routes>
-                            <Route path="profile" element={<ProfileComponent />} />
-                            <Route path="edit-profile" element={<EditProfileComponent />} />
-                            <Route path="home" element={<HomeComponent />} />
-                            <Route path="search" element={<SearchComponent />} />
-                            <Route path="activities" element={<ActivitiesComponent />} />
-                            <Route path="login" element={<LoginComponent />} />
-                            <Route path="signup" element={<RegisterComponent />} />
+                            <Route path={ROUTE_PATHS.PROFILE} element={<ProfileComponent />} />
+                            <Route path={ROUTE_PATHS.EDIT_PROFILE} element={<EditProfileComponent />} />
+                            <Route path={ROUTE_PATHS.HOME} element={<HomeComponent />} />
+                            <Route path={ROUTE_PATHS.SEARCH} element={<SearchComponent />} />
+                            <Route path={ROUTE_PATHS.ACTIVITIES} element={<ActivitiesComponent />} />
+                            <Route path={ROUTE_PATHS.LOGIN} element={<LoginComponent />} />
+                            <Route path={ROUTE_PATHS.SIGNUP} element={<RegisterComponent />} />
                             <Route
                                 path={`news-detail/:id`}
                                 element={<NewsDetail />}
