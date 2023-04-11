@@ -42,6 +42,26 @@ function News() {
     const location = useLocation();
     const [selectedItem, setSelectedItem] = useState('home');
     const [collapsed, setCollapsed] = useState(false);
+    useEffect(() => {
+        const mediaQuery = window.matchMedia("(max-width: 768px)");
+        if (mediaQuery.matches) {
+            setCollapsed(true);
+        } else {
+            setCollapsed(false);
+        }
+        const resizeHandler = () => {
+            if (mediaQuery.matches) {
+                setCollapsed(true);
+            } else {
+                setCollapsed(false);
+            }
+        };
+        window.addEventListener("resize", resizeHandler);
+        return () => {
+            window.removeEventListener("resize", resizeHandler);
+        };
+    }, []);
+
     const onClick = e => {
         setSelectedItem(e.key);
         navigate(e.key);
@@ -50,29 +70,6 @@ function News() {
         token: { colorBgContainer }
     } = theme.useToken();
     return (
-        // <Provider store={store}>
-        //     <div>
-        //     <TopbarComponent/>
-        //     <div style={{
-        //         display: "flex", flexDirection: "row"
-        //     }}>
-        //     <NavigationSidebar/>
-
-
-        //     <div className="" >
-        //         <Routes>
-        // <Route path="profile"    element={<ProfileComponent/>}/>
-        // <Route path="edit-profile" element={<EditProfileComponent/>}/>
-        // <Route path="home"    element={<HomeComponent/>}/>
-        // <Route path="activities"    element={<ActivitiesComponent/>}/>
-        // <Route path="login"    element={<LoginComponent/>}/>
-        // <Route path="signup"    element={<RegisterComponent/>}/>
-        //         </Routes>
-        //     </div>
-        //     </div>
-
-        //     </div>
-        // </Provider>
         <Provider store={store}>
             <Layout style={{ minHeight: "100vh" }}>
                 <Sider trigger={null} collapsible collapsed={collapsed}>
