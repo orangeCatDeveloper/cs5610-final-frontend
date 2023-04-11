@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Input, List } from 'antd';
+import { Input, List, Divider } from 'antd';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 const { Search } = Input;
@@ -34,6 +34,7 @@ const SearchCompoent = () => {
   return (
     <div>
       <h4>Search News</h4>
+      <Divider />
       <Search placeholder="Search for news" enterButton="Search" size="large" onSearch={handleSearch} />
       <List
         itemLayout="vertical"

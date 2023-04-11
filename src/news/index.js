@@ -13,6 +13,7 @@ import TopbarComponent from "./topbar";
 import LoginComponent from "./login";
 import RegisterComponent from "./register";
 import SearchComponent from "./search";
+import AdminComponent from "./admin";
 import EditProfileComponent from "./profile/edit-profile";
 import profileReducer from "./profile/profile-reducer";
 import userReducer from "../redux/user-reducer";
@@ -20,7 +21,7 @@ import getItem from "../common/util";
 import { ROUTE_PATHS } from "../constants/path";
 import {
     HomeOutlined, UserOutlined, CalendarOutlined, MenuFoldOutlined,
-    MenuUnfoldOutlined, SearchOutlined
+    MenuUnfoldOutlined, SearchOutlined, TeamOutlined
 } from '@ant-design/icons';
 const store = configureStore(
     { reducer: { profile: profileReducer, user: userReducer } });
@@ -31,6 +32,7 @@ const items =
         getItem('Home', ROUTE_PATHS.HOME, <HomeOutlined />),
         getItem('Search', ROUTE_PATHS.SEARCH, <SearchOutlined />),
         getItem('Activities', ROUTE_PATHS.ACTIVITIES, <CalendarOutlined />),
+        getItem('Admin', ROUTE_PATHS.ADMIN, <TeamOutlined />),
         getItem('User', 'sub1', <UserOutlined />, [
             getItem('Profile', ROUTE_PATHS.PROFILE),
             getItem('Login', ROUTE_PATHS.LOGIN),
@@ -64,17 +66,17 @@ function News() {
     // }, []);
     useEffect(() => {
         if (
-          location.pathname === ROUTE_PATHS.HOME ||
-          location.pathname === "/"
+            location.pathname === ROUTE_PATHS.HOME ||
+            location.pathname === "/"
         ) {
-          setSelectedItem(ROUTE_PATHS.HOME);
+            setSelectedItem(ROUTE_PATHS.HOME);
         } else if (location.pathname === ROUTE_PATHS.SEARCH) {
-          setSelectedItem(ROUTE_PATHS.SEARCH);
+            setSelectedItem(ROUTE_PATHS.SEARCH);
         } else {
-        //   setSelectedItem("");
-          setSelectedItem(location.pathname);
+            //   setSelectedItem("");
+            setSelectedItem(location.pathname);
         }
-      }, [location.pathname]);
+    }, [location.pathname]);
 
     const onClick = e => {
         setSelectedItem(e.key);
@@ -124,6 +126,7 @@ function News() {
                             <Route path={ROUTE_PATHS.ACTIVITIES} element={<ActivitiesComponent />} />
                             <Route path={ROUTE_PATHS.LOGIN} element={<LoginComponent />} />
                             <Route path={ROUTE_PATHS.SIGNUP} element={<RegisterComponent />} />
+                            <Route path={ROUTE_PATHS.ADMIN} element={<AdminComponent />} />
                             <Route
                                 path={`news-detail/:id`}
                                 element={<NewsDetail />}

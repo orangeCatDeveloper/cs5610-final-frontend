@@ -8,4 +8,5 @@ export const ROUTE_PATHS = {
     EDIT_PROFILE: "/edit-profile",
     ACTIVITIES: "/activites",
     SIGNUP: "/signup",
+    ADMIN: "/admin",
 };
