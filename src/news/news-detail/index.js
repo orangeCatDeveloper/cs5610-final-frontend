@@ -56,7 +56,7 @@ const NewsDetail = () => {
             <p>{newsData.content}</p>
             <p>{newsData.description}</p>
             <p>{newsData.description}</p>
-            <a href={newsData.url}>Original post</a>
+            <a href={newsData.url} target="_blank">Original post</a>
             <br/>
             <br/>
             <TextArea rows={4} placeholder="Write a review" onChange={setReview}/>
