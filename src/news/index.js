@@ -14,6 +14,7 @@ import LoginComponent from "./login";
 import RegisterComponent from "./register";
 import SearchComponent from "./search";
 import AdminComponent from "./admin";
+import CreateNewsComponent from "./create-news";
 import EditProfileComponent from "./profile/edit-profile";
 import profileReducer from "./profile/profile-reducer";
 import userReducer from "../redux/user-reducer";
@@ -21,7 +22,7 @@ import getItem from "../common/util";
 import { ROUTE_PATHS } from "../constants/path";
 import {
     HomeOutlined, UserOutlined, CalendarOutlined, MenuFoldOutlined,
-    MenuUnfoldOutlined, SearchOutlined, TeamOutlined
+    MenuUnfoldOutlined, SearchOutlined, TeamOutlined, EditOutlined
 } from '@ant-design/icons';
 const store = configureStore(
     { reducer: { profile: profileReducer, currentUser: userReducer } });
@@ -32,6 +33,7 @@ const items =
         getItem('Home', ROUTE_PATHS.HOME, <HomeOutlined />),
         getItem('Search', ROUTE_PATHS.SEARCH, <SearchOutlined />),
         getItem('Activities', ROUTE_PATHS.ACTIVITIES, <CalendarOutlined />),
+        getItem('Create News', ROUTE_PATHS.CREATE_NEWS, <EditOutlined />),
         getItem('Admin', ROUTE_PATHS.ADMIN, <TeamOutlined />),
         getItem('User', 'sub1', <UserOutlined />, [
             getItem('Profile', ROUTE_PATHS.PROFILE),
@@ -131,6 +133,7 @@ function News() {
                                 path={`news-detail/:id`}
                                 element={<NewsDetail />}
                             />
+                            <Route path={ROUTE_PATHS.CREATE_NEWS} element={<CreateNewsComponent />} />
                         </Routes>
                     </Content>
                 </Layout>

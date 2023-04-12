@@ -1,8 +1,8 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { registerThunk } from "../../services/user-thunks";
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Button, Divider, Input } from 'antd';
 // const onFinish = (values) => {
 //   console.log('Success:', values);
 // };
@@ -12,34 +12,37 @@ const onFinishFailed = (errorInfo) => {
 
 
 const Register = () => {
-    const [username, setUsername] = useState("user1");
-    const [password, setPassword] = useState("123");
-    const [firstName, setFirstName] = useState("max");
-    const [lastName, setLastName] = useState("cai");
-    const [email, setEmail] = useState("123@gmail.com");
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const onClickHandler = async () => {
-        if (!(username && password && firstName && lastName && email)) {
-            alert("Please fill in all fields");
-            return;
-        }
-        try {
-            await dispatch(registerThunk(
-                {username,
-                firstName,
-                lastName,
-                password,
-                email}
-            ))
-            // navigate('/profile');
-        } catch (e) {
-            alert(e);
-        }
+  const [username, setUsername] = useState("user1");
+  const [password, setPassword] = useState("123");
+  const [firstName, setFirstName] = useState("max");
+  const [lastName, setLastName] = useState("cai");
+  const [email, setEmail] = useState("123@gmail.com");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const onClickHandler = async () => {
+    if (!(username && password && firstName && lastName && email)) {
+      alert("Please fill in all fields");
+      return;
     }
-    return(
+    try {
+      await dispatch(registerThunk(
+        {
+          username,
+          firstName,
+          lastName,
+          password,
+          email
+        }
+      ))
+      // navigate('/profile');
+    } catch (e) {
+      alert(e);
+    }
+  }
+  return (
     <div>
-      <h1>Register Screen</h1>
+      <h4>Register</h4>
+      <Divider />
       <div>
         <label>Username</label>
         <br />
@@ -94,10 +97,10 @@ const Register = () => {
           required
         />
       </div>
-      <Button type="primary" htmlType="submit" onClick={onClickHandler}>
+      <Button type="primary" htmlType="submit" style={{ marginTop: "20px" }} onClick={onClickHandler}>
         Submit
       </Button>
     </div>
-);
+  );
 }
 export default Register;
