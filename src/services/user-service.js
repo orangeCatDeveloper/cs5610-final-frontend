@@ -25,21 +25,22 @@ export const updateUser = async (user) => {
 };
 
 export const login = async (userInfo) => {
-  console.log("user service login: " + userInfo.username);
+  let user = "";
   const response = await api.post(`${USERS_URL}/login`, userInfo)
   .then(response => {
     console.log("Status code:", response.status);
     console.log(response);
+    user = response.data;
+    user['role'] = userInfo['role'];
+    user['username'] = userInfo['username']
   })
   .catch(error => {
-    console.log(error.message)
+    console.log(error.message);
     if (error.message.includes("401")) {
         alert("Invalid username or password")
     }
     
   });
-  console.log(response);
-  const user = response.data;
   return user;
 };
 

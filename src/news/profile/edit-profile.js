@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { editProfile } from "./profile-reducer";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import ProfileState from "./ProfileState";
 
 const EditProfile = (
 ) => {
+    const user = useSelector((state) => state.currentUser.currentUser);
     const [profile, setProfile] = useState(ProfileState)
     const setFirstName = (e) => {
         const newFirstName = e.target.value;
@@ -21,33 +22,6 @@ const EditProfile = (
         const newProfile = {
             ...profile,
             lastName: newlastName
-        };
-        setProfile(newProfile)
-    }
-    const setBio = (e) => {
-        const newBio = e.target.value;
-        ProfileState.bio = newBio;
-        const newProfile = {
-            ...profile,
-            bio: newBio
-        };
-        setProfile(newProfile)
-    }
-    const setLocation = (e) => {
-        const newLocation = e.target.value;
-        ProfileState.location = newLocation;
-        const newProfile = {
-            ...profile,
-            location: newLocation
-        };
-        setProfile(newProfile)
-    }
-    const setDateOfBirth = (e) => {
-        const newDateOfBirth = e.target.value;
-        ProfileState.dateOfBirth = newDateOfBirth;
-        const newProfile = {
-            ...profile,
-            dateOfBirth: newDateOfBirth
         };
         setProfile(newProfile)
     }
@@ -71,7 +45,7 @@ const EditProfile = (
     <form onSubmit={handleSubmit}>
     <div className="position-relative mb-5">
         <img className="w-100" src={`/images/${profile.bannerPicture}`}/>
-        <img className="position-absolute wd-nudge-down rounded-circle" height={100} src={`/images/${profile.profilePicture}`}/>
+        {/* <img className="position-absolute wd-nudge-down rounded-circle" height={100} src={`/images/${profile.profilePicture}`}/> */}
     </div>
     
         <label for="firstName" className="form-label">firstName</label>
@@ -79,7 +53,7 @@ const EditProfile = (
             className="form-control"
             type="text"
             id="firstName"
-            value={profile.firstName}
+            value={user.firstName}
             onChange={setFirstName}
         />
         <label for="lastName" className="form-label">lastName</label>
@@ -87,35 +61,8 @@ const EditProfile = (
             className="form-control"
             type="text"
             id="lastName"
-            value={profile.lastName}
+            value={user.lastName}
             onChange={setLastName}
-        />
-        <label for="bio" className="form-label">Bio</label>
-        <textarea
-            className="form-control"
-            id="bio"
-            value={profile.bio}
-            onChange={setBio}
-        ></textarea>
-
-        <label for="location" className="form-label">Location</label>
-        <input
-            className="form-control"
-            id="location"
-            value={profile.location}
-            onChange={setLocation}
-        />
-
-        
-
-        <label for="birth" className="form-label">Birth date</label>
-        <input
-            className="form-control"
-            type="text"
-            id="birth"
-            value={profile.dateOfBirth}
-            onChange={setDateOfBirth
-            }
         />
 
         

@@ -24,7 +24,7 @@ import {
     MenuUnfoldOutlined, SearchOutlined, TeamOutlined
 } from '@ant-design/icons';
 const store = configureStore(
-    { reducer: { profile: profileReducer, user: userReducer } });
+    { reducer: { profile: profileReducer, currentUser: userReducer } });
 const { Header, Sider, Content } = Layout;
 
 const items =
