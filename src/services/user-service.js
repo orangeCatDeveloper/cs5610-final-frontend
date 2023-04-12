@@ -29,7 +29,6 @@ export const login = async (userInfo) => {
   const response = await api.post(`${USERS_URL}/login`, userInfo)
   .then(response => {
     console.log("Status code:", response.status);
-    console.log(response);
     user = response.data;
     user['role'] = userInfo['role'];
     user['username'] = userInfo['username']
