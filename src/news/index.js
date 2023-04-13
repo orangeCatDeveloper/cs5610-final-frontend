@@ -4,7 +4,6 @@ import { configureStore }
     from "@reduxjs/toolkit";
 import { Layout, Menu, theme } from "antd";
 import { Provider } from "react-redux";
-import NavigationSidebar from "./navigation-sidebar";
 import HomeComponent from "./home";
 import ProfileComponent from "./profile";
 import ActivitiesComponent from "./activity";
@@ -15,8 +14,6 @@ import RegisterComponent from "./register";
 import SearchComponent from "./search";
 import AdminComponent from "./admin";
 import CreateNewsComponent from "./create-news";
-import EditProfileComponent from "./profile/edit-profile";
-import profileReducer from "./profile/profile-reducer";
 import userReducer from "../redux/user-reducer";
 import getItem from "../common/util";
 import { ROUTE_PATHS } from "../constants/path";
@@ -25,7 +22,7 @@ import {
     MenuUnfoldOutlined, SearchOutlined, TeamOutlined, EditOutlined
 } from '@ant-design/icons';
 const store = configureStore(
-    { reducer: { profile: profileReducer, currentUser: userReducer } });
+    { reducer: { currentUser: userReducer } });
 const { Header, Sider, Content } = Layout;
 
 const items =
@@ -47,25 +44,25 @@ function News() {
     const location = useLocation();
     const [selectedItem, setSelectedItem] = useState('home');
     const [collapsed, setCollapsed] = useState(false);
-    // useEffect(() => {
-    //     const mediaQuery = window.matchMedia("(max-width: 768px)");
-    //     if (mediaQuery.matches) {
-    //         setCollapsed(true);
-    //     } else {
-    //         setCollapsed(false);
-    //     }
-    //     const resizeHandler = () => {
-    //         if (mediaQuery.matches) {
-    //             setCollapsed(true);
-    //         } else {
-    //             setCollapsed(false);
-    //         }
-    //     };
-    //     window.addEventListener("resize", resizeHandler);
-    //     return () => {
-    //         window.removeEventListener("resize", resizeHandler);
-    //     };
-    // }, []);
+    useEffect(() => {
+        const mediaQuery = window.matchMedia("(max-width: 768px)");
+        if (mediaQuery.matches) {
+            setCollapsed(true);
+        } else {
+            setCollapsed(false);
+        }
+        const resizeHandler = () => {
+            if (mediaQuery.matches) {
+                setCollapsed(true);
+            } else {
+                setCollapsed(false);
+            }
+        };
+        window.addEventListener("resize", resizeHandler);
+        return () => {
+            window.removeEventListener("resize", resizeHandler);
+        };
+    }, []);
     useEffect(() => {
         if (
             location.pathname === ROUTE_PATHS.HOME ||
@@ -122,7 +119,6 @@ function News() {
                     >
                         <Routes>
                             <Route path={ROUTE_PATHS.PROFILE} element={<ProfileComponent />} />
-                            <Route path={ROUTE_PATHS.EDIT_PROFILE} element={<EditProfileComponent />} />
                             <Route path={ROUTE_PATHS.HOME} element={<HomeComponent />} />
                             <Route path={ROUTE_PATHS.SEARCH} element={<SearchComponent />} />
                             <Route path={ROUTE_PATHS.ACTIVITIES} element={<ActivitiesComponent />} />
