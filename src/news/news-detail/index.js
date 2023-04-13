@@ -72,7 +72,7 @@ const NewsDetail = () => {
             <div>Author: {newsData.author}</div>
             <Divider />
             <Image
-                width={"full"}
+                width={700}
                 src={newsData.image}
             />
             <Divider />
