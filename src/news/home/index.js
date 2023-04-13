@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const NewsList = () => {
+    const user = JSON.parse(localStorage.getItem('user'));
 
     const [allNews, setAllNews] = useState([]);
     const newsResponse = axios.get(`${BASE_URL}/news`)

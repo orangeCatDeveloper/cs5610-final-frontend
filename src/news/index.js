@@ -1,28 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route, useNavigate, useLocation } from "react-router";
-import { configureStore }
-    from "@reduxjs/toolkit";
 import { Layout, Menu, theme } from "antd";
 import { Provider } from "react-redux";
 import HomeComponent from "./home";
 import ProfileComponent from "./profile";
 import ActivitiesComponent from "./activity";
 import NewsDetail from "./news-detail";
-import TopbarComponent from "./topbar";
 import LoginComponent from "./login";
 import RegisterComponent from "./register";
 import SearchComponent from "./search";
 import AdminComponent from "./admin";
 import CreateNewsComponent from "./create-news";
-import userReducer from "../redux/user-reducer";
 import getItem from "../common/util";
 import { ROUTE_PATHS } from "../constants/path";
 import {
     HomeOutlined, UserOutlined, CalendarOutlined, MenuFoldOutlined,
     MenuUnfoldOutlined, SearchOutlined, TeamOutlined, EditOutlined
 } from '@ant-design/icons';
-const store = configureStore(
-    { reducer: { currentUser: userReducer } });
+
 const { Header, Sider, Content } = Layout;
 
 const items =
@@ -85,57 +80,54 @@ function News() {
         token: { colorBgContainer }
     } = theme.useToken();
     return (
-        <Provider store={store}>
-            <Layout style={{ minHeight: "100vh" }}>
-                <Sider trigger={null} collapsible collapsed={collapsed}>
-                    <Menu
-                        onClick={onClick}
-                        selectedKeys={[selectedItem]}
-                        theme="dark"
-                        mode="inline"
-                        items={items}
-                        style={{ marginTop: 8 }}
-                    />
-                </Sider>
-                <Layout className="site-layout">
-                    <Header
-                        style={{ padding: 0, paddingLeft: 30, background: colorBgContainer }}
-                    >
-                        {React.createElement(
-                            collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
-                            {
-                                className: "trigger",
-                                onClick: () => setCollapsed(!collapsed)
-                            }
-                        )}
-                    </Header>
-                    <Content
-                        style={{
-                            margin: "24px 16px",
-                            padding: 24,
-                            minHeight: 280,
-                            background: colorBgContainer
-                        }}
-                    >
-                        <Routes>
-                            <Route path={ROUTE_PATHS.PROFILE} element={<ProfileComponent />} />
-                            <Route path={ROUTE_PATHS.HOME} element={<HomeComponent />} />
-                            <Route path={ROUTE_PATHS.SEARCH} element={<SearchComponent />} />
-                            <Route path={ROUTE_PATHS.ACTIVITIES} element={<ActivitiesComponent />} />
-                            <Route path={ROUTE_PATHS.LOGIN} element={<LoginComponent />} />
-                            <Route path={ROUTE_PATHS.SIGNUP} element={<RegisterComponent />} />
-                            <Route path={ROUTE_PATHS.ADMIN} element={<AdminComponent />} />
-                            <Route
-                                path={`news-detail/:id`}
-                                element={<NewsDetail />}
-                            />
-                            <Route path={ROUTE_PATHS.CREATE_NEWS} element={<CreateNewsComponent />} />
-                        </Routes>
-                    </Content>
-                </Layout>
+        <Layout style={{ minHeight: "100vh" }}>
+            <Sider trigger={null} collapsible collapsed={collapsed}>
+                <Menu
+                    onClick={onClick}
+                    selectedKeys={[selectedItem]}
+                    theme="dark"
+                    mode="inline"
+                    items={items}
+                    style={{ marginTop: 8 }}
+                />
+            </Sider>
+            <Layout className="site-layout">
+                <Header
+                    style={{ padding: 0, paddingLeft: 30, background: colorBgContainer }}
+                >
+                    {React.createElement(
+                        collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
+                        {
+                            className: "trigger",
+                            onClick: () => setCollapsed(!collapsed)
+                        }
+                    )}
+                </Header>
+                <Content
+                    style={{
+                        margin: "24px 16px",
+                        padding: 24,
+                        minHeight: 280,
+                        background: colorBgContainer
+                    }}
+                >
+                    <Routes>
+                        <Route path={ROUTE_PATHS.PROFILE} element={<ProfileComponent />} />
+                        <Route path={ROUTE_PATHS.HOME} element={<HomeComponent />} />
+                        <Route path={ROUTE_PATHS.SEARCH} element={<SearchComponent />} />
+                        <Route path={ROUTE_PATHS.ACTIVITIES} element={<ActivitiesComponent />} />
+                        <Route path={ROUTE_PATHS.LOGIN} element={<LoginComponent />} />
+                        <Route path={ROUTE_PATHS.SIGNUP} element={<RegisterComponent />} />
+                        <Route path={ROUTE_PATHS.ADMIN} element={<AdminComponent />} />
+                        <Route
+                            path={`news-detail/:id`}
+                            element={<NewsDetail />}
+                        />
+                        <Route path={ROUTE_PATHS.CREATE_NEWS} element={<CreateNewsComponent />} />
+                    </Routes>
+                </Content>
             </Layout>
-
-        </Provider>
+        </Layout>
     )
 
 }

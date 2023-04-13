@@ -1,26 +1,31 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { loginThunk } from "../../services/user-thunks";
+import axios from 'axios';
 
 import { Button, Divider, Form, Input, Radio } from 'antd';
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const Login = () => {
-  const dispatch = useDispatch();
   const onLoginHandler = async (value) => {
     const { role, username } = value;
     if (role === 'admin' && username !== 'admin') {
       alert("This user is not admin");
       return;
     }
-    try {
-      await dispatch(loginThunk(
-        value
-      ))
-    } catch (e) {
-      console.log(e);
-    }
+    axios.post(`${BASE_URL}/login`, value)
+      .then(response => {
+        let user = response.data;
+        user['role'] = value['role'];
+        localStorage.setItem('user', JSON.stringify(user));
+      })
+      .catch(error => {
+        console.log(error.message);
+        if (error.message.includes("401")) {
+          alert("Invalid username or password")
+        }
+      });
   }
+
   return (
     <div>
       <h4>Login</h4>

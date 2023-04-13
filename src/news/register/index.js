@@ -1,21 +1,25 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import { registerThunk } from "../../services/user-thunks";
+import axios from 'axios';
 import { Button, Divider, Form, Input } from 'antd';
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const Register = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const onClickHandler = async (value) => {
-    try {
-      await dispatch(registerThunk(
-        value
-      ));
-      // navigate('/profile');
-    } catch (e) {
-      alert(e);
-    }
+    axios.post(`${BASE_URL}/register`, value)
+      .then(response => {
+        console.log("Status code:", response.status);
+      })
+      .catch(error => {
+        console.log(error.message)
+        if (error.message.includes("409")) {
+          alert("username already in use! Please change a new one")
+        } else if (error.message.includes("400")) {
+          alert("Please fill in all fields.")
+        }
+      });
   }
   return (
     <div>

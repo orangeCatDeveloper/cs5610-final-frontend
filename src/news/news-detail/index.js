@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { useSelector } from "react-redux";
 import axios from 'axios';
-import { Image, List, Input, Button, Divider } from 'antd';
-import { StarOutlined, StarFilled } from '@ant-design/icons';
+import { Image, List, Input, Button, Divider, Avatar } from 'antd';
+import { StarOutlined, StarFilled, UserOutlined } from '@ant-design/icons';
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 const { TextArea } = Input;
@@ -14,7 +13,7 @@ const NewsDetail = () => {
     const [review, setReview] = useState("");
     const [updateTrigger, setUpdateTrigger] = useState(false);
     const [newsReviews, setNewsReviews] = useState([]);
-    const user = useSelector((state) => state.currentUser.currentUser);
+    const user = JSON.parse(localStorage.getItem('user'));
     const getNewsDetail = () => {
         axios.get(`${BASE_URL}/news/${id}`)
             .then(response => setNewsData(response.data))
@@ -49,7 +48,7 @@ const NewsDetail = () => {
     }
     const createReview = () => {
         if (user) {
-            axios.post(`${BASE_URL}/user/${user._id}/review/${id}`, review)
+            axios.post(`${BASE_URL}/user/${user._id}/review/${id}`, { content: review, token: user.token })
                 .then(response => setUpdateTrigger(status => !status));
         } else {
             alert("Please login");
@@ -62,12 +61,10 @@ const NewsDetail = () => {
         getReviews();
     }, [updateTrigger]);
 
-
-
     return (
         <div>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <h5>{newsData.title}</h5>
+                <h4>{newsData.title}</h4>
                 <div onClick={toggleBookmark}>
                     {bookmark ? <StarFilled style={{ fontSize: '24px' }} /> : <StarOutlined style={{ fontSize: '24px' }} />}
                 </div>
@@ -104,22 +101,17 @@ const NewsDetail = () => {
                     pageSize: 5,
                 }}
                 dataSource={newsReviews}
+
                 renderItem={(item) => (
                     <List.Item
                         key={item._id}
                         actions={[]}
-                    // extra={
-                    // <img
-                    //     width={272}
-                    //     alt="logo"
-                    //     src={item.urlToImage}
-                    // />
-                    // }
                     >
                         <List.Item.Meta
-                            title={item.postedBy}
+                            avatar={<Avatar size={26} icon={<UserOutlined />} />}
+                            title={item.postedBy.username}
+                            description={item.content}
                         />
-                        {item.content}
                     </List.Item>
                 )}
             />

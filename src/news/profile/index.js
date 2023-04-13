@@ -4,12 +4,11 @@ import { Avatar, Divider, Button, Form, Input } from 'antd';
 import {
     UserOutlined
 } from '@ant-design/icons';
-import { useSelector } from "react-redux";
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const EditProfile = (
 ) => {
-    const user = useSelector((state) => state.currentUser.currentUser);
+    const user = JSON.parse(localStorage.getItem('user'));
     const [profile, setProfile] = useState({ username: "N/A", password: "123", firstName: "N/A", lastName: "N/A", email: "N/A" });
     const [updateTrigger, setUpdateTrigger] = useState(false);
     const [form] = Form.useForm();
