@@ -65,7 +65,7 @@ const UserDetail = (
             <h4>User Profile</h4>
             <Divider />
             <Card>
-                <Avatar size={64} icon={<UserOutlined} />
+                <Avatar size={64} icon={<UserOutlined/>} />
                 <Divider />
                 <h3>${profile.username}</h3>
                 <p>First Name: ${profile.firstName}</p>

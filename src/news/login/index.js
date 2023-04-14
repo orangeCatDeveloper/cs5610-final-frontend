@@ -15,6 +15,7 @@ const Login = () => {
     axios.post(`${BASE_URL}/login`, value)
       .then(response => {
         let user = response.data;
+        console.log(user);
         user['role'] = value['role'];
         localStorage.setItem('user', JSON.stringify(user));
       })

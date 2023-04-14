@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Input, List, Divider } from 'antd';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -8,15 +8,17 @@ const NewsList = () => {
     const user = JSON.parse(localStorage.getItem('user'));
 
     const [allNews, setAllNews] = useState([]);
-    const newsResponse = axios.get(`${BASE_URL}/news`)
+    
+    const navigate = useNavigate();
+    const fetchNews = () =>{
+        axios.get(`${BASE_URL}/news`)
         .then(response => {
             setAllNews(response.data);
         })
         .catch(error => {
             console.error(error);
         });
-    const navigate = useNavigate();
-
+    }
     const clickNews = (news) => {
         axios.post(`${BASE_URL}/save`, news)
             .then(response => {
@@ -27,6 +29,11 @@ const NewsList = () => {
                 console.log(`Open news error`);
             });
     };
+
+    useEffect(() => {
+        fetchNews();
+    })
+
 
     return (
         <div>
