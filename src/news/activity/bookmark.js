@@ -10,7 +10,6 @@ const Bookmark = () => {
     const navigate = useNavigate();
 
     const getBookmarkNews = () => {
-        console.log("user id: " + user._id);
         axios.get(`${BASE_URL}/user/${user._id}/bookmark`)
         .then(response => {
             setMyBookmark(response.data);
