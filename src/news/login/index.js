@@ -18,7 +18,7 @@ const Login = () => {
         let user = response.data;
         user['role'] = value['role'];
         localStorage.setItem('user', JSON.stringify(user));
-        
+        navigate('/home', {state: {role: user['role']}});
       })
       .catch(error => {
         console.log(error.message);
@@ -26,7 +26,7 @@ const Login = () => {
           alert("Invalid username or password")
         }
       });
-    navigate('/home');
+    
   }
 
   return (

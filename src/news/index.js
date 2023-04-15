@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route, useNavigate, useLocation } from "react-router";
-import { Layout, Menu, theme } from "antd";
+import { Layout, Menu, theme, Button, Space } from "antd";
 import { Provider } from "react-redux";
 import HomeComponent from "./home";
 import ProfileComponent from "./profile";
@@ -42,7 +42,7 @@ function News() {
     const location = useLocation();
     const [selectedItem, setSelectedItem] = useState('home');
     const [collapsed, setCollapsed] = useState(false);
-    const [count, setCount] = useState(0);
+    const {role} = useState(0);
     useEffect(() => {
         const mediaQuery = window.matchMedia("(max-width: 768px)");
         if (mediaQuery.matches) {
@@ -78,8 +78,18 @@ function News() {
 
     const onClick = e => {
         setSelectedItem(e.key);
+        if (e.key === ROUTE_PATHS.LOGIN) {
+
+        }
         navigate(e.key);
     };
+
+    const onLogout = () => {
+        localStorage.setItem('user', null);
+        console.log("logged out");
+        setSelectedItem(ROUTE_PATHS.HOME);
+        navigate(ROUTE_PATHS.HOME);
+    }
     const {
         token: { colorBgContainer }
     } = theme.useToken();
@@ -100,23 +110,29 @@ function News() {
                 <Menu.Item key={ROUTE_PATHS.SEARCH} icon={<SearchOutlined />}>
                     Search
                 </Menu.Item>
-                <Menu.Item key={ROUTE_PATHS.ACTIVITIES} icon={<CalendarOutlined />}>
+                {user && <Menu.Item key={ROUTE_PATHS.ACTIVITIES} icon={<CalendarOutlined />}>
                     Activities
-                </Menu.Item>
-                <Menu.Item key={ROUTE_PATHS.FOLLOW} icon={<UsergroupAddOutlined />}>
+                </Menu.Item>}
+                {user && <Menu.Item key={ROUTE_PATHS.FOLLOW} icon={<UsergroupAddOutlined />}>
                     Follow
-                </Menu.Item>
-                <Menu.Item key={ROUTE_PATHS.CREATE_NEWS} icon={<EditOutlined />}>
+                </Menu.Item>}
+                {user && (user.role === 'creator' || user.role ==='admin') && <Menu.Item key={ROUTE_PATHS.CREATE_NEWS} icon={<EditOutlined />}>
                     Create News
-                </Menu.Item>
+                </Menu.Item>}
                 {user && user.role === 'admin' && <Menu.Item key={ROUTE_PATHS.ADMIN} icon={<TeamOutlined />}>
                     Admin
                 </Menu.Item>}
-                <Menu.Item key={ROUTE_PATHS.PROFILE} icon={<UserOutlined />}>
+                {user && <Menu.Item key={ROUTE_PATHS.PROFILE} icon={<UserOutlined />}>
                     Profile
-                </Menu.Item>
+                </Menu.Item>}
                 <Menu.Item key={ROUTE_PATHS.LOGIN} icon={<LoginOutlined />}>
                     Login
+                </Menu.Item>
+                <Menu.Item key='logout' position="bottom">
+                                    
+                        <Button type="text" onClick={onLogout} danger>
+                        Logout
+                        </Button>
                 </Menu.Item>
 
 
