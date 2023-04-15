@@ -11,6 +11,8 @@ const Register = () => {
     axios.post(`${BASE_URL}/register`, value)
       .then(response => {
         console.log("Status code:", response.status);
+        alert("Sign up success, please log in and enjoy news");
+        navigate('/login');
       })
       .catch(error => {
         console.log(error.message)
@@ -20,6 +22,7 @@ const Register = () => {
           alert("Please fill in all fields.")
         }
       });
+    
   }
   return (
     <div>

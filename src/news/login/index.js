@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 import { Button, Divider, Form, Input, Radio } from 'antd';
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const Login = () => {
+  const navigate = useNavigate();
   const onLoginHandler = async (value) => {
     const { role, username } = value;
     if (role === 'admin' && username !== 'admin') {
@@ -15,9 +16,9 @@ const Login = () => {
     axios.post(`${BASE_URL}/login`, value)
       .then(response => {
         let user = response.data;
-        console.log(user);
         user['role'] = value['role'];
         localStorage.setItem('user', JSON.stringify(user));
+        
       })
       .catch(error => {
         console.log(error.message);
@@ -25,6 +26,7 @@ const Login = () => {
           alert("Invalid username or password")
         }
       });
+    navigate('/home');
   }
 
   return (

@@ -31,7 +31,10 @@ const EditProfile = (
 
     const onFinish = (value) => {
         axios.put(`${BASE_URL}/users/${user._id}`, { ...value, token: user.token })
-            .then(response => setUpdateTrigger(status => !status))
+            .then(response => {
+                setUpdateTrigger(status => !status)
+                alert("Update success");
+            })
             .catch(error => {
                 console.error(error);
             });
