@@ -78,15 +78,18 @@ function News() {
 
     const onClick = e => {
         setSelectedItem(e.key);
-        if (e.key === ROUTE_PATHS.LOGIN) {
-
+        if (e.key === 'logout') {
+            localStorage.setItem('user', null);
+            setSelectedItem(ROUTE_PATHS.HOME);
+            navigate(ROUTE_PATHS.HOME);
+        } else {
+            navigate(e.key);
         }
-        navigate(e.key);
+        
     };
 
     const onLogout = () => {
         localStorage.setItem('user', null);
-        console.log("logged out");
         setSelectedItem(ROUTE_PATHS.HOME);
         navigate(ROUTE_PATHS.HOME);
     }
@@ -125,15 +128,15 @@ function News() {
                 {user && <Menu.Item key={ROUTE_PATHS.PROFILE} icon={<UserOutlined />}>
                     Profile
                 </Menu.Item>}
-                <Menu.Item key={ROUTE_PATHS.LOGIN} icon={<LoginOutlined />}>
+                {!user && <Menu.Item key={ROUTE_PATHS.LOGIN} icon={<LoginOutlined />}>
                     Login
-                </Menu.Item>
-                <Menu.Item key='logout' position="bottom">
+                </Menu.Item>}
+                {user && <Menu.Item key='logout' position="bottom" danger>
                                     
-                        <Button type="text" onClick={onLogout} danger>
+                        {/* <Button type="text" onClick={onLogout} danger> */}
                         Logout
-                        </Button>
-                </Menu.Item>
+                        {/* </Button> */}
+                </Menu.Item>}
 
 
                 </Menu>

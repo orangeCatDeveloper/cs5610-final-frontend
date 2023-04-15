@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import axios from 'axios';
-import { Image, List, Input, Button, Divider, Avatar } from 'antd';
-import { StarOutlined, StarFilled, UserOutlined } from '@ant-design/icons';
+import { Image, List, Input, Button, Divider, Avatar, Skeleton } from 'antd';
+import { StarOutlined, StarFilled, UserOutlined, CloseOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -56,6 +56,16 @@ const NewsDetail = () => {
             alert("Please login");
         }
     }
+    const deleteReview = (nid) => {
+        console.log("delete");
+        // if (user) {
+        //     axios.delete(`${BASE_URL}/user/${user._id}/review/${nid}`)
+        //     .then(response => setDeleteUpdate(status => !status));
+        // } else {
+        //     alert("Please login");
+        // }
+        
+    }
 
     useEffect(() => {
         getNewsDetail();
@@ -107,17 +117,24 @@ const NewsDetail = () => {
                 renderItem={(item) => (
                     <List.Item 
                         // onClick={() => navigate(`/user-detail/${item.postedBy._id}`)  }
+                        
                         key={item._id}
-                        actions={[]}
+                        actions={[item.postedBy._id === user._id && <a key="delete post" onClick={
+                            // deleteReview(item.newsID)
+                                () => 
+                                axios.delete(`${BASE_URL}/user/${user._id}/review/${item.newsID}`).then(response => setUpdateTrigger(status => !status))
+                        }>delete</a>]}
                     >
                         <List.Item.Meta
                             avatar={
                             <Avatar size={26} icon={<UserOutlined />} />
                              }
-                            title={<a onClick={() => navigate(`/user-detail/${item.postedBy._id}`)  }>{item.postedBy.username}</a>}
+                            title={<a onClick={() => item.postedBy._id === user._id ? navigate('/profile') : navigate(`/user-detail/${item.postedBy._id}`)  }>{item.postedBy.username}</a>}
                             description={item.content}
                         />
+
                     </List.Item>
+                    
                 )}
             />
         </div>

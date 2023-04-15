@@ -16,7 +16,7 @@ const UserDetail = (
     const [updateTrigger, setUpdateTrigger] = useState(false);
 
     const getUserProfile = () => {
-        if (user) {
+        // if (user) {
             axios.get(`${BASE_URL}/users/${id}`)
                 .then(response => {
                     setProfile(response.data);
@@ -25,7 +25,7 @@ const UserDetail = (
                 .catch(error => {
                     console.error(error);
                 });
-        }
+        // }
     }
 
     const handleFollow = () => {
@@ -77,7 +77,7 @@ const UserDetail = (
     return (
         <div>
             <h4>User Profile</h4>
-            <p>{user.username}</p>
+            <p>{user ? user.username : ''}</p>
             <Divider />
             <Card>
                 <Avatar size={64} icon={<UserOutlined/>} />
@@ -85,9 +85,9 @@ const UserDetail = (
                 <h3>{profile.username}</h3>
                 <p>First Name: {profile.firstName}</p>
                 <p>Last Name: {profile.lastName}</p>
-                <Button type="primary" onClick={handleFollow}>
+                {user && <Button type="primary" onClick={handleFollow}>
                     {isFollowing ? 'Unfollow' : 'Follow'}
-                </Button>
+                </Button>}
             </Card>
         </div>);
 }

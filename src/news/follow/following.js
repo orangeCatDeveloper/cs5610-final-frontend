@@ -25,8 +25,6 @@ const Following = () => {
     })
     return (
         <div>
-        <h4>Following</h4>
-        <Divider />
         <List
             itemLayout="vertical"
             size="large"

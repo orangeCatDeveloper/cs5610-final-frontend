@@ -8,6 +8,7 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 const Review = () => {
     const user = JSON.parse(localStorage.getItem('user'));
     const [myReview, setMyReview] = useState([]);
+    const [updateTrigger, setUpdateTrigger] = useState(false);
     const navigate = useNavigate();
 
     const getMyReview = () => {
@@ -22,7 +23,7 @@ const Review = () => {
 
     useEffect(() => {
         getMyReview();
-    })
+    }, [updateTrigger])
     return(
         <div>
             <h4>Reviews</h4>
@@ -41,7 +42,11 @@ const Review = () => {
                 renderItem={(item) => (
                     <List.Item
                         key={item._id}
-                        actions={[]}
+                        actions={[<a key="delete post" onClick={
+                                () => 
+                                axios.delete(`${BASE_URL}/user/${user._id}/review/${item.newsID._id}`)
+                                .then(response => setUpdateTrigger(status => !status))
+                        }>delete</a>]}
                     >
                         <List.Item.Meta
                             title={"Review: " + item.content}
