@@ -11,6 +11,7 @@ import RegisterComponent from "./register";
 import SearchComponent from "./search";
 import AdminComponent from "./admin";
 import CreateNewsComponent from "./create-news";
+import UserDetail from "./user-detail";
 import getItem from "../common/util";
 import { ROUTE_PATHS } from "../constants/path";
 import {
@@ -124,6 +125,10 @@ function News() {
                             element={<NewsDetail />}
                         />
                         <Route path={ROUTE_PATHS.CREATE_NEWS} element={<CreateNewsComponent />} />
+                        <Route
+                            path={`user-detail/:id`}
+                            element={<UserDetail />}
+                        />
                     </Routes>
                 </Content>
             </Layout>

@@ -6,6 +6,7 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const Bookmark = () => {
     const user = JSON.parse(localStorage.getItem('user'));
+    
     const [myBookmark, setMyBookmark] = useState([]);
     const navigate = useNavigate();
 
@@ -30,7 +31,9 @@ const Bookmark = () => {
     };
 
     useEffect(() => {
+        console.log(user._id);
         getBookmarkNews();
+        
     })
     return(
         <div>

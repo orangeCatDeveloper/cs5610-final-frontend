@@ -3,6 +3,7 @@ import { useParams } from "react-router";
 import axios from 'axios';
 import { Image, List, Input, Button, Divider, Avatar } from 'antd';
 import { StarOutlined, StarFilled, UserOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 const { TextArea } = Input;
@@ -14,6 +15,7 @@ const NewsDetail = () => {
     const [updateTrigger, setUpdateTrigger] = useState(false);
     const [newsReviews, setNewsReviews] = useState([]);
     const user = JSON.parse(localStorage.getItem('user'));
+    const navigate = useNavigate();
     const getNewsDetail = () => {
         axios.get(`${BASE_URL}/news/${id}`)
             .then(response => setNewsData(response.data))
@@ -53,6 +55,11 @@ const NewsDetail = () => {
         } else {
             alert("Please login");
         }
+    }
+    const onAvatarClick = (postedBy) => {
+        // navigate(`/user-detail/${postedBy}`)
+        console.log("onAvatarClick")
+        console.log(postedBy);
     }
 
     useEffect(() => {
@@ -103,12 +110,14 @@ const NewsDetail = () => {
                 dataSource={newsReviews}
 
                 renderItem={(item) => (
-                    <List.Item
+                    <List.Item onClick={() => navigate(`/user-detail/${item.postedBy._id}`)  }
                         key={item._id}
                         actions={[]}
                     >
                         <List.Item.Meta
-                            avatar={<Avatar size={26} icon={<UserOutlined />} />}
+                            avatar={
+                            <Avatar size={26} icon={<UserOutlined />} />
+                             }
                             title={item.postedBy.username}
                             description={item.content}
                         />
