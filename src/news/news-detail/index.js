@@ -56,11 +56,6 @@ const NewsDetail = () => {
             alert("Please login");
         }
     }
-    const onAvatarClick = (postedBy) => {
-        // navigate(`/user-detail/${postedBy}`)
-        console.log("onAvatarClick")
-        console.log(postedBy);
-    }
 
     useEffect(() => {
         getNewsDetail();
@@ -110,7 +105,8 @@ const NewsDetail = () => {
                 dataSource={newsReviews}
 
                 renderItem={(item) => (
-                    <List.Item onClick={() => navigate(`/user-detail/${item.postedBy._id}`)  }
+                    <List.Item 
+                        // onClick={() => navigate(`/user-detail/${item.postedBy._id}`)  }
                         key={item._id}
                         actions={[]}
                     >
@@ -118,7 +114,7 @@ const NewsDetail = () => {
                             avatar={
                             <Avatar size={26} icon={<UserOutlined />} />
                              }
-                            title={item.postedBy.username}
+                            title={<a onClick={() => navigate(`/user-detail/${item.postedBy._id}`)  }>{item.postedBy.username}</a>}
                             description={item.content}
                         />
                     </List.Item>

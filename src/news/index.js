@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import HomeComponent from "./home";
 import ProfileComponent from "./profile";
 import ActivitiesComponent from "./activity";
+import FollowComponent from "./follow";
 import NewsDetail from "./news-detail";
 import LoginComponent from "./login";
 import RegisterComponent from "./register";
@@ -16,7 +17,7 @@ import getItem from "../common/util";
 import { ROUTE_PATHS } from "../constants/path";
 import {
     HomeOutlined, UserOutlined, CalendarOutlined, MenuFoldOutlined,
-    MenuUnfoldOutlined, SearchOutlined, TeamOutlined, EditOutlined
+    MenuUnfoldOutlined, SearchOutlined, TeamOutlined, EditOutlined, LoginOutlined, UsergroupAddOutlined
 } from '@ant-design/icons';
 
 const { Header, Sider, Content } = Layout;
@@ -36,10 +37,12 @@ const items =
     ];
 
 function News() {
+    const user = JSON.parse(localStorage.getItem('user'));
     const navigate = useNavigate();
     const location = useLocation();
     const [selectedItem, setSelectedItem] = useState('home');
     const [collapsed, setCollapsed] = useState(false);
+    const [count, setCount] = useState(0);
     useEffect(() => {
         const mediaQuery = window.matchMedia("(max-width: 768px)");
         if (mediaQuery.matches) {
@@ -88,9 +91,36 @@ function News() {
                     selectedKeys={[selectedItem]}
                     theme="dark"
                     mode="inline"
-                    items={items}
+                    // items={items}
                     style={{ marginTop: 8 }}
-                />
+                >
+                <Menu.Item key={ROUTE_PATHS.HOME} icon={<HomeOutlined />}>
+                    Home
+                </Menu.Item>
+                <Menu.Item key={ROUTE_PATHS.SEARCH} icon={<SearchOutlined />}>
+                    Search
+                </Menu.Item>
+                <Menu.Item key={ROUTE_PATHS.ACTIVITIES} icon={<CalendarOutlined />}>
+                    Activities
+                </Menu.Item>
+                <Menu.Item key={ROUTE_PATHS.FOLLOW} icon={<UsergroupAddOutlined />}>
+                    Follow
+                </Menu.Item>
+                <Menu.Item key={ROUTE_PATHS.CREATE_NEWS} icon={<EditOutlined />}>
+                    Create News
+                </Menu.Item>
+                {user && user.role === 'admin' && <Menu.Item key={ROUTE_PATHS.ADMIN} icon={<TeamOutlined />}>
+                    Admin
+                </Menu.Item>}
+                <Menu.Item key={ROUTE_PATHS.PROFILE} icon={<UserOutlined />}>
+                    Profile
+                </Menu.Item>
+                <Menu.Item key={ROUTE_PATHS.LOGIN} icon={<LoginOutlined />}>
+                    Login
+                </Menu.Item>
+
+
+                </Menu>
             </Sider>
             <Layout className="site-layout">
                 <Header
@@ -117,6 +147,7 @@ function News() {
                         <Route path={ROUTE_PATHS.HOME} element={<HomeComponent />} />
                         <Route path={ROUTE_PATHS.SEARCH} element={<SearchComponent />} />
                         <Route path={ROUTE_PATHS.ACTIVITIES} element={<ActivitiesComponent />} />
+                        <Route path={ROUTE_PATHS.FOLLOW} element={<FollowComponent />} />
                         <Route path={ROUTE_PATHS.LOGIN} element={<LoginComponent />} />
                         <Route path={ROUTE_PATHS.SIGNUP} element={<RegisterComponent />} />
                         <Route path={ROUTE_PATHS.ADMIN} element={<AdminComponent />} />
@@ -129,6 +160,7 @@ function News() {
                             path={`user-detail/:id`}
                             element={<UserDetail />}
                         />
+                        
                     </Routes>
                 </Content>
             </Layout>

@@ -31,7 +31,7 @@ const Bookmark = () => {
     };
 
     useEffect(() => {
-        console.log(user._id);
+        // console.log(user._id);
         getBookmarkNews();
         
     })

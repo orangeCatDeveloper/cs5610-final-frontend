@@ -10,4 +10,5 @@ export const ROUTE_PATHS = {
     SIGNUP: "/signup",
     ADMIN: "/admin",
     CREATE_NEWS: "/create-news",
+    FOLLOW: "/follow"
 };
