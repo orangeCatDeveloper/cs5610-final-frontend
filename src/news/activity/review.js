@@ -26,8 +26,6 @@ const Review = () => {
     }, [updateTrigger])
     return(
         <div>
-            <h4>Reviews</h4>
-            <Divider />
             <List
                 itemLayout="vertical"
                 size="large"

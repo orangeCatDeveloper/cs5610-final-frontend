@@ -37,7 +37,8 @@ const NewsList = () => {
 
     return (
         <div>
-            <h4>Home</h4>
+            
+            {user ? <h4>Welcome back, {user.firstName}</h4> : <h4>Home</h4>}
             <Divider />
             <List
                 itemLayout="vertical"
@@ -58,7 +59,7 @@ const NewsList = () => {
                             <img
                                 width={272}
                                 alt="logo"
-                                src={item.image}
+                                src={item.image ? item.image : '/images/banner.png'}
                             />
                         }
                     >

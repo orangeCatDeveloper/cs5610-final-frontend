@@ -113,12 +113,6 @@ function News() {
                 <Menu.Item key={ROUTE_PATHS.SEARCH} icon={<SearchOutlined />}>
                     Search
                 </Menu.Item>
-                {user && <Menu.Item key={ROUTE_PATHS.ACTIVITIES} icon={<CalendarOutlined />}>
-                    Activities
-                </Menu.Item>}
-                {user && <Menu.Item key={ROUTE_PATHS.FOLLOW} icon={<UsergroupAddOutlined />}>
-                    Follow
-                </Menu.Item>}
                 {user && (user.role === 'creator' || user.role ==='admin') && <Menu.Item key={ROUTE_PATHS.CREATE_NEWS} icon={<EditOutlined />}>
                     Create News
                 </Menu.Item>}

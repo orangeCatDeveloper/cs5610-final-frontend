@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Input, List, Divider } from 'antd';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +8,8 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const SearchCompoent = () => {
   const [searchResults, setSearchResults] = useState([]);
+  // const [searchResults, setSearchResults] = useState(JSON.parse(localStorage.getItem('searchResults')));
+  // const searchResult = JSON.parse(localStorage.getItem('searchResult'));
   const navigate = useNavigate();
 
   const handleSearch = (value) => {
@@ -21,6 +23,7 @@ const SearchCompoent = () => {
   };
 
   const clickNews = (news) => {
+    setSearchResults(searchResults);
     axios.post(`${BASE_URL}/save`, news)
       .then(response => {
         const newsId = response.data._id;
@@ -31,11 +34,22 @@ const SearchCompoent = () => {
       });
   };
 
+  useEffect(() => {
+    localStorage.setItem('searchResult', JSON.stringify(searchResults));
+  }, [searchResults])
+
+  useEffect(() => {
+    const storedResult = JSON.parse(localStorage.getItem('searchResult'));
+    if (storedResult !== null) {
+      setSearchResults(storedResult);
+    }
+  }, []);
+
   return (
     <div>
       <h4>Search News</h4>
       <Divider />
-      <Search placeholder="Search for news" enterButton="Search" size="large" onSearch={handleSearch} />
+      <Search placeholder="Search for news"  enterButton="Search" size="large" onSearch={handleSearch} />
       <List
         itemLayout="vertical"
         size="large"
@@ -55,7 +69,7 @@ const SearchCompoent = () => {
               <img
                 width={272}
                 alt="logo"
-                src={item.urlToImage}
+                src={item.urlToImage ? item.urlToImage : '/images/banner.png'}
               />
             }
           >

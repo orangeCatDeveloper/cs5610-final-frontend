@@ -37,8 +37,6 @@ const Bookmark = () => {
     })
     return(
         <div>
-            <h4>Bookmark</h4>
-            <Divider />
             <List
                 itemLayout="vertical"
                 size="large"

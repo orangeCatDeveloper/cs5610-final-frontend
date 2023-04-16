@@ -4,6 +4,8 @@ import { Avatar, Divider, Button, Form, Input } from 'antd';
 import {
     UserOutlined
 } from '@ant-design/icons';
+import Activities from "../activity";
+import Follow from "../follow";
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const EditProfile = (
@@ -81,6 +83,8 @@ const EditProfile = (
                     Update
                 </Button>
             </Form>
+            <Divider/>
+            <Activities/>
         </div>);
 }
 
