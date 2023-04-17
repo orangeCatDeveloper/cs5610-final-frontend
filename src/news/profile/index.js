@@ -47,7 +47,7 @@ const EditProfile = (
             <h4>My Profile</h4>
             <Divider />
             <Row>
-                <Col md={24} lg={16}>
+                <Col xs={24} sm={24} md={24} lg={16}>
                 <Avatar style={{ marginBottom: "5px" }} size={64} icon={<UserOutlined />} />
                 {user && <h4>Role: {user.role}</h4>}
             <Form
@@ -86,7 +86,7 @@ const EditProfile = (
                 </Button>
             </Form>
                 </Col>
-                <Col md={0} lg={8}>
+                <Col xs={0} sm={0} md={0} lg={8}>
                     <Follow/>
                 </Col>
             </Row>

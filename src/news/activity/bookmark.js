@@ -8,6 +8,10 @@ const Bookmark = () => {
     const user = JSON.parse(localStorage.getItem('user'));
     
     const [myBookmark, setMyBookmark] = useState([]);
+    const [windowSize, setWindowSize] = useState({
+        width: undefined,
+        height: undefined,
+      });
     const navigate = useNavigate();
 
     const getBookmarkNews = () => {
@@ -52,13 +56,13 @@ const Bookmark = () => {
                         key={item.newsID.url}
                         onClick={() => clickNews(item.newsID)}
                         actions={[]}
-                        extra={
-                            <img
-                                width={200}
-                                alt="logo"
-                                src={item.newsID.image}
-                            />
-                        }
+                        // extra={
+                        //     <img
+                        //         width={200}
+                        //         alt="logo"
+                        //         src={item.newsID.image}
+                        //     />
+                        // }
                     >
                         <List.Item.Meta
                             title={item.newsID.title}

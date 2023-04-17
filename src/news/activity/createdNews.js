@@ -52,13 +52,13 @@ const CreatedNews = () => {
                         key={item.url}
                         onClick={() => clickNews(item)}
                         actions={[]}
-                        extra={
-                            <img
-                                width={200}
-                                alt="logo"
-                                src={item.image}
-                            />
-                        }
+                        // extra={
+                        //     <img
+                        //         width={200}
+                        //         alt="logo"
+                        //         src={item.image}
+                        //     />
+                        // }
                     >
                         <List.Item.Meta
                             title={item.title}

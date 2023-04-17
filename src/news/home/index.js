@@ -10,6 +10,10 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 const NewsList = () => {
     const user = JSON.parse(localStorage.getItem('user'));
     const [allNews, setAllNews] = useState([]);
+    const [windowSize, setWindowSize] = useState({
+        width: undefined,
+        height: undefined,
+      });
     const navigate = useNavigate();
     const fetchNews = () => {
         axios.get(`${BASE_URL}/news`)
@@ -30,9 +34,17 @@ const NewsList = () => {
                 console.log(`Open news error`);
             });
     };
+    const handleResize = () => {
+        setWindowSize({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        });
+    }
 
     useEffect(() => {
         fetchNews();
+        window.addEventListener("resize", handleResize);
+        handleResize();
     }, [])
 
 
@@ -60,7 +72,7 @@ const NewsList = () => {
                         onClick={() => clickNews(item)}
                         actions={[]}
                         extra={
-                            <img
+                            (windowSize.width > 768) && <img
                                 className="d-none d-md-block"
                                 style={{ maxWidth: 200 }}
                                 alt="logo"

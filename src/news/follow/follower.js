@@ -22,7 +22,8 @@ const Follower = () => {
 
     useEffect(() => {
         getFollower();
-    })
+
+    });
     return (
         <div>
         <List
