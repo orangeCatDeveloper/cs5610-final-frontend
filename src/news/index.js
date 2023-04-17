@@ -126,10 +126,7 @@ function News() {
                     Login
                 </Menu.Item>}
                 {user && <Menu.Item key='logout' position="bottom" danger>
-                                    
-                        {/* <Button type="text" onClick={onLogout} danger> */}
                         Logout
-                        {/* </Button> */}
                 </Menu.Item>}
 
 
@@ -156,8 +153,9 @@ function News() {
                     }}
                 >
                     <Routes>
-                        <Route path={ROUTE_PATHS.PROFILE} element={<ProfileComponent />} />
+                        <Route path='/' element={<HomeComponent />} />
                         <Route path={ROUTE_PATHS.HOME} element={<HomeComponent />} />
+                        <Route path={ROUTE_PATHS.PROFILE} element={<ProfileComponent />} />
                         <Route path={ROUTE_PATHS.SEARCH} element={<SearchComponent />} />
                         <Route path={ROUTE_PATHS.ACTIVITIES} element={<ActivitiesComponent />} />
                         <Route path={ROUTE_PATHS.FOLLOW} element={<FollowComponent />} />
@@ -170,7 +168,7 @@ function News() {
                         />
                         <Route path={ROUTE_PATHS.CREATE_NEWS} element={<CreateNewsComponent />} />
                         <Route
-                            path={`user-detail/:id`}
+                            path={`profile/:id`}
                             element={<UserDetail />}
                         />
                         

@@ -38,7 +38,7 @@ const Following = () => {
             renderItem={(item) => (
                 <List.Item
                     key={item.followee._id}
-                    onClick={() => navigate(`/user-detail/${item.followee._id}`)}
+                    onClick={() => navigate(`/profile/${item.followee._id}`)}
                     actions={[]}
 
                 >

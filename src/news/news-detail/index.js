@@ -129,7 +129,7 @@ const NewsDetail = () => {
                             avatar={
                             <Avatar size={26} icon={<UserOutlined />} />
                              }
-                            title={<a onClick={() => item.postedBy._id === user._id ? navigate('/profile') : navigate(`/user-detail/${item.postedBy._id}`)  }>{item.postedBy.username}</a>}
+                            title={<a onClick={() => item.postedBy._id === user._id ? navigate('/profile') : navigate(`/profile/${item.postedBy._id}`)  }>{item.postedBy.username}</a>}
                             description={item.content}
                         />
 

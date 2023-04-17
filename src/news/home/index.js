@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { List, Divider } from 'antd';
+import { List, Divider, Row, Col } from 'antd';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 const BASE_URL = process.env.REACT_APP_BASE_URL;
+import "./index.css";
 
 const NewsList = () => {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -35,8 +36,8 @@ const NewsList = () => {
 
     return (
         <div>
-            
-            {user ? <h4>Welcome back, {user.firstName}</h4> : <h4>Home</h4>}
+            <h1><b>Popular news among users</b></h1>
+            {user && <h4>Welcome back, {user.firstName}</h4>}
             <Divider />
             <List
                 itemLayout="vertical"
