@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Avatar, Divider, Button, Card } from 'antd';
 import {
@@ -14,51 +15,46 @@ const UserDetail = (
     const [profile, setProfile] = useState({ username: "N/A", password: "123", firstName: "N/A", lastName: "N/A", email: "N/A" });
     const [isFollowing, setIsFollowing] = useState(false);
     const [updateTrigger, setUpdateTrigger] = useState(false);
+    const navigate = useNavigate();
 
     const getUserProfile = () => {
         // if (user) {
-            axios.get(`${BASE_URL}/users/${id}`)
-                .then(response => {
-                    setProfile(response.data);
-                    getFollowing();
-                })
-                .catch(error => {
-                    console.error(error);
-                });
+        axios.get(`${BASE_URL}/users/${id}`)
+            .then(response => {
+                setProfile(response.data);
+                getFollowing();
+            })
+            .catch(error => {
+                console.error(error);
+            });
         // }
     }
 
     const handleFollow = () => {
         if (user) {
             axios.put(`${BASE_URL}/user/${user._id}/follow/${id}`)
-            .then(response => {
-                setIsFollowing(isFollowing => !isFollowing); // todo: check if this works
-            })
-            .catch(error => {
-                console.error(error);
-            });
+                .then(response => {
+                    setIsFollowing(isFollowing => !isFollowing); // todo: check if this works
+                })
+                .catch(error => {
+                    console.error(error);
+                });
         }
     }
 
     const getFollowing = () => {
         if (user) {
             axios.get(`${BASE_URL}/user/${user._id}/follow/${id}`)
-            .then(response => {
-                setIsFollowing(response.data);
-            })
-            .catch(error => {
-                console.error(error);
-            });
+                .then(response => {
+                    setIsFollowing(response.data);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
         }
     }
-    const toggleFollowing = () => {
-        // if (user) {
-        //     axios.put(`${BASE_URL}/user/${user._id}/bookmark/${id}`)
-        //         .then(response => setBookmark(status => !status))
-        //         .catch(error => {
-        //             console.error(error);
-        //         });
-        // }
+    const handleBack = () => {
+        navigate(-1);
     }
 
     useEffect(() => {
@@ -79,8 +75,9 @@ const UserDetail = (
             <h4>User Profile</h4>
             <p>{user ? user.username : ''}</p>
             <Divider />
+            <Button type="primary" size="small" style={{ marginBottom: "20px" }} onClick={handleBack}>Back</Button>
             <Card>
-                <Avatar size={64} icon={<UserOutlined/>} />
+                <Avatar size={64} icon={<UserOutlined />} />
                 <Divider />
                 <h3>{profile.username}</h3>
                 <p>First Name: {profile.firstName}</p>

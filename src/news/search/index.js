@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { Input, List, Divider } from 'antd';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 const { Search } = Input;
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 
 const SearchCompoent = () => {
   const [searchResults, setSearchResults] = useState([]);
-  // const [searchResults, setSearchResults] = useState(JSON.parse(localStorage.getItem('searchResults')));
-  // const searchResult = JSON.parse(localStorage.getItem('searchResult'));
   const navigate = useNavigate();
-
+  const [searchParams, setSearchParams] = useSearchParams();
+  const keyword = searchParams.get('keyword');
   const handleSearch = (value) => {
-    axios.get(`${BASE_URL}/search?keyword=${value}`)
+    navigate(`/search?keyword=${value}`);
+  };
+
+  const fetchNews = () => {
+    axios.get(`${BASE_URL}/search?keyword=${keyword}`)
       .then(response => {
         setSearchResults(response.data);
       })
@@ -23,7 +26,6 @@ const SearchCompoent = () => {
   };
 
   const clickNews = (news) => {
-    setSearchResults(searchResults);
     axios.post(`${BASE_URL}/save`, news)
       .then(response => {
         const newsId = response.data._id;
@@ -35,21 +37,16 @@ const SearchCompoent = () => {
   };
 
   useEffect(() => {
-    localStorage.setItem('searchResult', JSON.stringify(searchResults));
-  }, [searchResults])
-
-  useEffect(() => {
-    const storedResult = JSON.parse(localStorage.getItem('searchResult'));
-    if (storedResult !== null) {
-      setSearchResults(storedResult);
+    if (keyword !== null) {
+      fetchNews();
     }
-  }, []);
+  }, [keyword]);
 
   return (
     <div>
       <h4>Search News</h4>
       <Divider />
-      <Search placeholder="Search for news"  enterButton="Search" size="large" onSearch={handleSearch} />
+      <Search placeholder="Search for news" enterButton="Search" size="large" onSearch={handleSearch} />
       <List
         itemLayout="vertical"
         size="large"

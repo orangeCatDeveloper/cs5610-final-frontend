@@ -42,7 +42,7 @@ function News() {
     const location = useLocation();
     const [selectedItem, setSelectedItem] = useState('home');
     const [collapsed, setCollapsed] = useState(false);
-    const {role} = useState(0);
+    const { role } = useState(0);
     useEffect(() => {
         const mediaQuery = window.matchMedia("(max-width: 768px)");
         if (mediaQuery.matches) {
@@ -85,7 +85,7 @@ function News() {
         } else {
             navigate(e.key);
         }
-        
+
     };
 
     const onLogout = () => {
@@ -171,7 +171,7 @@ function News() {
                             path={`profile/:id`}
                             element={<UserDetail />}
                         />
-                        
+
                     </Routes>
                 </Content>
             </Layout>

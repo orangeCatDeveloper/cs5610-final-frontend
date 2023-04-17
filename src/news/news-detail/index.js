@@ -64,7 +64,11 @@ const NewsDetail = () => {
         // } else {
         //     alert("Please login");
         // }
-        
+
+    }
+
+    const handleBack = () => {
+        navigate(-1);
     }
 
     useEffect(() => {
@@ -75,6 +79,7 @@ const NewsDetail = () => {
 
     return (
         <div>
+            <Button type="primary" size="small" style={{ marginBottom: "20px" }} onClick={handleBack}>Back</Button>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <h4>{newsData.title}</h4>
                 <div onClick={toggleBookmark}>
@@ -115,13 +120,13 @@ const NewsDetail = () => {
                 dataSource={newsReviews}
 
                 renderItem={(item) => (
-                    <List.Item 
+                    <List.Item
                         // onClick={() => navigate(`/user-detail/${item.postedBy._id}`)  }
-                        
+
                         key={item._id}
                         actions={[item.postedBy._id === user._id && <a key="delete post" onClick={
                             // deleteReview(item.newsID)
-                                () => 
+                            () =>
                                 axios.delete(`${BASE_URL}/user/${user._id}/review/${item.newsID}`).then(response => setUpdateTrigger(status => !status))
                         }>delete</a>]}
                     >
@@ -134,7 +139,7 @@ const NewsDetail = () => {
                         />
 
                     </List.Item>
-                    
+
                 )}
             />
         </div>
