@@ -42,7 +42,7 @@ function News() {
     const location = useLocation();
     const [selectedItem, setSelectedItem] = useState('home');
     const [collapsed, setCollapsed] = useState(false);
-    const {role} = useState(0);
+    const { role } = useState(0);
     useEffect(() => {
         const mediaQuery = window.matchMedia("(max-width: 768px)");
         if (mediaQuery.matches) {
@@ -85,7 +85,7 @@ function News() {
         } else {
             navigate(e.key);
         }
-        
+
     };
 
     const onLogout = () => {
@@ -107,30 +107,30 @@ function News() {
                     // items={items}
                     style={{ marginTop: 8 }}
                 >
-                <Menu.Item key={ROUTE_PATHS.HOME} icon={<HomeOutlined />}>
-                    Home
-                </Menu.Item>
-                <Menu.Item key={ROUTE_PATHS.SEARCH} icon={<SearchOutlined />}>
-                    Search
-                </Menu.Item>
-                {user && (user.role === 'creator' || user.role ==='admin') && <Menu.Item key={ROUTE_PATHS.CREATE_NEWS} icon={<EditOutlined />}>
-                    Create News
-                </Menu.Item>}
-                {user && user.role === 'admin' && <Menu.Item key={ROUTE_PATHS.ADMIN} icon={<TeamOutlined />}>
-                    Admin
-                </Menu.Item>}
-                {user && <Menu.Item key={ROUTE_PATHS.PROFILE} icon={<UserOutlined />}>
-                    Profile
-                </Menu.Item>}
-                {!user && <Menu.Item key={ROUTE_PATHS.LOGIN} icon={<LoginOutlined />}>
-                    Login
-                </Menu.Item>}
-                {user && <Menu.Item key='logout' position="bottom" danger>
-                                    
+                    <Menu.Item key={ROUTE_PATHS.HOME} icon={<HomeOutlined />}>
+                        Home
+                    </Menu.Item>
+                    <Menu.Item key={ROUTE_PATHS.SEARCH} icon={<SearchOutlined />}>
+                        Search
+                    </Menu.Item>
+                    {user && (user.role === 'creator' || user.role === 'admin') && <Menu.Item key={ROUTE_PATHS.CREATE_NEWS} icon={<EditOutlined />}>
+                        Create News
+                    </Menu.Item>}
+                    {user && user.role === 'admin' && <Menu.Item key={ROUTE_PATHS.ADMIN} icon={<TeamOutlined />}>
+                        Admin
+                    </Menu.Item>}
+                    {user && <Menu.Item key={ROUTE_PATHS.PROFILE} icon={<UserOutlined />}>
+                        Profile
+                    </Menu.Item>}
+                    {!user && <Menu.Item key={ROUTE_PATHS.LOGIN} icon={<LoginOutlined />}>
+                        Login
+                    </Menu.Item>}
+                    {user && <Menu.Item key='logout' position="bottom" danger>
+
                         {/* <Button type="text" onClick={onLogout} danger> */}
                         Logout
                         {/* </Button> */}
-                </Menu.Item>}
+                    </Menu.Item>}
 
 
                 </Menu>
@@ -156,6 +156,7 @@ function News() {
                     }}
                 >
                     <Routes>
+                        <Route path="/" element={<HomeComponent />} />
                         <Route path={ROUTE_PATHS.PROFILE} element={<ProfileComponent />} />
                         <Route path={ROUTE_PATHS.HOME} element={<HomeComponent />} />
                         <Route path={ROUTE_PATHS.SEARCH} element={<SearchComponent />} />
@@ -173,7 +174,7 @@ function News() {
                             path={`user-detail/:id`}
                             element={<UserDetail />}
                         />
-                        
+
                     </Routes>
                 </Content>
             </Layout>
