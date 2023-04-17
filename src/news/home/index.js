@@ -3,7 +3,7 @@ import { List, Divider, Row, Col } from 'antd';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import ReviewComponent from '../activity/review';
-import CreateNewsComponent from '../create-news';
+import CreatedNewsComponent from '../activity/createdNews';
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 
@@ -39,9 +39,9 @@ const NewsList = () => {
     return (
         <div>
             
-            {user && <h4>Welcome back, {user.firstName}</h4>}
-            {user && user.role === 'user' && <ReviewComponent/>}
-            {user && (user.role === 'creator' || user.role === 'admin') && <CreateNewsComponent/> }
+            {user && <h4>Welcome back, {user.username}</h4>}
+            {user && user.role === 'user'  && <ReviewComponent/>}
+            {user && (user.role === 'admin' || user.role === 'creator') && <CreatedNewsComponent/>}
             <h1><b>Popular news among users</b></h1>
             <Divider />
             <List
@@ -61,7 +61,8 @@ const NewsList = () => {
                         actions={[]}
                         extra={
                             <img
-                                width={272}
+                                className="d-none d-md-block"
+                                style={{ maxWidth: 200 }}
                                 alt="logo"
                                 src={item.image ? item.image : '/images/banner.png'}
                             />

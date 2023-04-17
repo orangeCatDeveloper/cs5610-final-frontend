@@ -38,7 +38,7 @@ const Follower = () => {
             renderItem={(item) => (
                 <List.Item
                     key={item.follower._id}
-                    onClick={() => navigate(`/user-detail/${item.follower._id}`)}
+                    onClick={() => navigate(`/profile/${item.follower._id}`)}
                     actions={[]}
                 >
                     <List.Item.Meta

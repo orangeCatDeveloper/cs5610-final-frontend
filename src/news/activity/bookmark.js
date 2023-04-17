@@ -54,7 +54,7 @@ const Bookmark = () => {
                         actions={[]}
                         extra={
                             <img
-                                width={272}
+                                width={200}
                                 alt="logo"
                                 src={item.newsID.image}
                             />
