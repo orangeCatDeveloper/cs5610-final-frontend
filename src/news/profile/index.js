@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
-import { Avatar, Divider, Button, Form, Input } from 'antd';
+import { Avatar, Divider, Button, Form, Input, Col, Row } from 'antd';
 import {
     UserOutlined
 } from '@ant-design/icons';
@@ -46,12 +46,14 @@ const EditProfile = (
         <div>
             <h4>My Profile</h4>
             <Divider />
-            <Avatar style={{ marginBottom: "5px" }} size={64} icon={<UserOutlined />} />
+            <Row>
+                <Col span={16}>
+                <Avatar style={{ marginBottom: "5px" }} size={64} icon={<UserOutlined />} />
             {user && <h4>Role: {user.role}</h4>}
             <Form
                 form={form}
                 layout="vertical"
-                style={{ maxWidth: 600, marginTop: "15px" }}
+                style={{ maxWidth: 600, marginTop: "5px" }}
                 initialValues={{ ...profile }}
                 onFinish={onFinish}>
                 <Form.Item name="username" label="Username">
@@ -83,6 +85,12 @@ const EditProfile = (
                     Update
                 </Button>
             </Form>
+                </Col>
+                <Col span={8}>
+                    <Follow/>
+                </Col>
+            </Row>
+
             <Divider/>
             <Activities/>
         </div>);

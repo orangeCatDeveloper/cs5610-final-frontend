@@ -1,6 +1,6 @@
 import React from "react";
 import { EyeOutlined, CommentOutlined } from '@ant-design/icons';
-import { Tabs } from 'antd';
+import { Tabs, Card } from 'antd';
 import getItem from "../../common/util";
 import Following from "./following";
 import Follower from "./follower";
@@ -13,12 +13,15 @@ const Follow = () => {
     return (
         <div>
             <h4>Follow</h4>
+            <Card>
             <Tabs
                 defaultActiveKey="2"
                 items={
                     items
                 }
             />
+            </Card>
+            
         </div>
 
     )

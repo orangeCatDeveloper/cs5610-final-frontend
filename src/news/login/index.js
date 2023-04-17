@@ -17,6 +17,7 @@ const Login = () => {
       .then(response => {
         let user = response.data;
         user['role'] = value['role'];
+        user['username'] = value['username'];
         localStorage.setItem('user', JSON.stringify(user));
         navigate('/home', {state: {role: user['role']}});
       })

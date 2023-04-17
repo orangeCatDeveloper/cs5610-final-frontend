@@ -132,7 +132,7 @@ const NewsDetail = () => {
                     >
                         <List.Item.Meta
                             avatar={
-                            <Avatar size={26} icon={<UserOutlined />} />
+                            <Avatar icon={<UserOutlined />} />
                              }
                             title={<a onClick={() => item.postedBy._id === user._id ? navigate('/profile') : navigate(`/profile/${item.postedBy._id}`)  }>{item.postedBy.username}</a>}
                             description={item.content}

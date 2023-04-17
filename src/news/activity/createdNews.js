@@ -1,24 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { List, Divider, Row, Col } from 'antd';
+import { Input, List, Divider } from 'antd';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import ReviewComponent from '../activity/review';
-import CreateNewsComponent from '../create-news';
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
-
-const NewsList = () => {
+const CreatedNews = () => {
     const user = JSON.parse(localStorage.getItem('user'));
-    const [allNews, setAllNews] = useState([]);
+    
+    const [myNews, setMyNews] = useState([]);
     const navigate = useNavigate();
-    const fetchNews = () => {
+
+    const getNews = () => {
         axios.get(`${BASE_URL}/news`)
-            .then(response => {
-                setAllNews(response.data);
-            })
-            .catch(error => {
-                console.error(error);
-            });
+        .then(response => {
+            setMyNews(response.data.filter((item) => item.author === user.username));
+        })
+        .catch(error => {
+            console.error(error);
+        });
     }
     const clickNews = (news) => {
         axios.post(`${BASE_URL}/save`, news)
@@ -32,18 +31,12 @@ const NewsList = () => {
     };
 
     useEffect(() => {
-        fetchNews();
-    }, [])
-
-
-    return (
+        // console.log(user._id);
+        getNews();
+        
+    })
+    return(
         <div>
-            
-            {user && <h4>Welcome back, {user.firstName}</h4>}
-            {user && user.role === 'user' && <ReviewComponent/>}
-            {user && (user.role === 'creator' || user.role === 'admin') && <CreateNewsComponent/> }
-            <h1><b>Popular news among users</b></h1>
-            <Divider />
             <List
                 itemLayout="vertical"
                 size="large"
@@ -53,7 +46,7 @@ const NewsList = () => {
                     },
                     pageSize: 5,
                 }}
-                dataSource={allNews}
+                dataSource={myNews}
                 renderItem={(item) => (
                     <List.Item
                         key={item.url}
@@ -63,7 +56,7 @@ const NewsList = () => {
                             <img
                                 width={272}
                                 alt="logo"
-                                src={item.image ? item.image : '/images/banner.png'}
+                                src={item.image}
                             />
                         }
                     >
@@ -76,8 +69,8 @@ const NewsList = () => {
                 )}
             />
         </div>
-
+        
     )
 }
 
-export default NewsList;
+export default CreatedNews;
