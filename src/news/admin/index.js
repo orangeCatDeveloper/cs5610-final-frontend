@@ -20,9 +20,7 @@ const AdminCompoent = () => {
     }, []);
 
     const clickUser = (user) => {
-        console.log(user);
-        //navigate(`/news-detail/${newsId}`);
-        navigate(`/user-detail/${user._id}`)
+        navigate(`/profile/${user._id}`)
     };
 
     return (
