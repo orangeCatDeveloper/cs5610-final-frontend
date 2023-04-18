@@ -14,6 +14,10 @@ const NewsDetail = () => {
     const [review, setReview] = useState("");
     const [updateTrigger, setUpdateTrigger] = useState(false);
     const [newsReviews, setNewsReviews] = useState([]);
+    const [windowSize, setWindowSize] = useState({
+        width: undefined,
+        height: undefined,
+    });
     const user = JSON.parse(localStorage.getItem('user'));
     const navigate = useNavigate();
     const getNewsDetail = () => {
@@ -46,6 +50,8 @@ const NewsDetail = () => {
                 .catch(error => {
                     console.error(error);
                 });
+        } else {
+            alert("Please login!");
         }
     }
     const createReview = () => {
@@ -56,6 +62,12 @@ const NewsDetail = () => {
             alert("Please login");
         }
     }
+    const handleResize = () => {
+        setWindowSize({
+            width: window.innerWidth,
+            height: window.innerHeight,
+        });
+    }
 
     const handleBack = () => {
         navigate(-1);
@@ -65,6 +77,8 @@ const NewsDetail = () => {
         getNewsDetail();
         getBookmark();
         getReviews();
+        window.addEventListener("resize", handleResize);
+        handleResize();
     }, [updateTrigger]);
 
     return (
@@ -78,10 +92,10 @@ const NewsDetail = () => {
             </div>
             <div>Author: {newsData.author}</div>
             <Divider />
-            <Image
+            {(windowSize.width > 1000) &&<Image
                 width={700}
                 src={newsData.image}
-            />
+            />}
             <Divider />
             <p>{newsData.description}</p>
             <p>{newsData.content}</p>

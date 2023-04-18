@@ -10,6 +10,10 @@ const SearchCompoent = () => {
   const [searchResults, setSearchResults] = useState([]);
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+  const [windowSize, setWindowSize] = useState({
+    width: undefined,
+    height: undefined,
+});
   const keyword = searchParams.get('keyword');
   const handleSearch = (value) => {
     navigate(`/search?keyword=${value}`);
@@ -35,11 +39,20 @@ const SearchCompoent = () => {
         console.log(`Open news error`);
       });
   };
+  const handleResize = () => {
+    setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+        
+    });
+}
 
   useEffect(() => {
     if (keyword !== null) {
       fetchNews();
     }
+    window.addEventListener("resize", handleResize);
+    handleResize();
   }, [keyword]);
 
   return (
@@ -63,7 +76,7 @@ const SearchCompoent = () => {
             onClick={() => clickNews(item)}
             actions={[]}
             extra={
-              <img
+              (windowSize.width > 786) && <img
                 width={272}
                 alt="logo"
                 src={item.urlToImage ? item.urlToImage : '/images/banner.png'}
