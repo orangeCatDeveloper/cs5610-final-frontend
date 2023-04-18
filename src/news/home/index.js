@@ -25,6 +25,7 @@ const NewsList = () => {
             });
     }
     const clickNews = (news) => {
+        console.log(news);
         navigate(`/news-detail/${news._id}`);
     };
     const handleResize = () => {

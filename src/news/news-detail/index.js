@@ -56,16 +56,6 @@ const NewsDetail = () => {
             alert("Please login");
         }
     }
-    const deleteReview = (nid) => {
-        console.log("delete");
-        // if (user) {
-        //     axios.delete(`${BASE_URL}/user/${user._id}/review/${nid}`)
-        //     .then(response => setDeleteUpdate(status => !status));
-        // } else {
-        //     alert("Please login");
-        // }
-
-    }
 
     const handleBack = () => {
         navigate(-1);
@@ -121,20 +111,17 @@ const NewsDetail = () => {
 
                 renderItem={(item) => (
                     <List.Item
-                        // onClick={() => navigate(`/user-detail/${item.postedBy._id}`)  }
-
                         key={item._id}
-                        actions={[item.postedBy._id === user._id && <a key="delete post" onClick={
-                            // deleteReview(item.newsID)
+                        actions={[(user && item.postedBy._id === user._id) && <a key="delete post" onClick={
                             () =>
                                 axios.delete(`${BASE_URL}/user/${user._id}/review/${item.newsID}`).then(response => setUpdateTrigger(status => !status))
                         }>delete</a>]}
                     >
                         <List.Item.Meta
                             avatar={
-                            <Avatar icon={<UserOutlined />} />
-                             }
-                            title={<a onClick={() => item.postedBy._id === user._id ? navigate('/profile') : navigate(`/profile/${item.postedBy._id}`)  }>{item.postedBy.username}</a>}
+                                <Avatar icon={<UserOutlined />} />
+                            }
+                            title={<a onClick={() => (user && item.postedBy._id === user._id) ? navigate('/profile') : navigate(`/profile/${item.postedBy._id}`)}>{item.postedBy.username}</a>}
                             description={item.content}
                         />
 
