@@ -13,7 +13,7 @@ const NewsList = () => {
     const [windowSize, setWindowSize] = useState({
         width: undefined,
         height: undefined,
-      });
+    });
     const navigate = useNavigate();
     const fetchNews = () => {
         axios.get(`${BASE_URL}/news`)
@@ -25,19 +25,12 @@ const NewsList = () => {
             });
     }
     const clickNews = (news) => {
-        axios.post(`${BASE_URL}/save`, news)
-            .then(response => {
-                const newsId = response.data._id;
-                navigate(`/news-detail/${newsId}`);
-            })
-            .catch(error => {
-                console.log(`Open news error`);
-            });
+        navigate(`/news-detail/${news._id}`);
     };
     const handleResize = () => {
         setWindowSize({
-          width: window.innerWidth,
-          height: window.innerHeight,
+            width: window.innerWidth,
+            height: window.innerHeight,
         });
     }
 
@@ -50,12 +43,12 @@ const NewsList = () => {
 
     return (
         <div>
-            
+
             {user && <h4>Welcome back, {user.username}</h4>}
-            {user && user.role === 'user'  && <h4>Your lastest reviews:</h4>}
-            {user && user.role === 'user'  && <ReviewComponent/>}
+            {user && user.role === 'user' && <h4>Your lastest reviews:</h4>}
+            {user && user.role === 'user' && <ReviewComponent />}
             {user && (user.role === 'admin' || user.role === 'creator') && <h4>News created by you:</h4>}
-            {user && (user.role === 'admin' || user.role === 'creator') && <CreatedNewsComponent/>}
+            {user && (user.role === 'admin' || user.role === 'creator') && <CreatedNewsComponent />}
             <h1><b>Popular news among users</b></h1>
             <Divider />
             <List
@@ -70,7 +63,7 @@ const NewsList = () => {
                 dataSource={allNews}
                 renderItem={(item) => (
                     <List.Item
-                        key={item.url}
+                        key={item._id}
                         onClick={() => clickNews(item)}
                         actions={[]}
                         extra={
