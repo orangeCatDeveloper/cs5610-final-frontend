@@ -52,7 +52,9 @@ const NewsList = () => {
         <div>
             
             {user && <h4>Welcome back, {user.username}</h4>}
+            {user && user.role === 'user'  && <h4>Your lastest reviews:</h4>}
             {user && user.role === 'user'  && <ReviewComponent/>}
+            {user && (user.role === 'admin' || user.role === 'creator') && <h4>News created by you:</h4>}
             {user && (user.role === 'admin' || user.role === 'creator') && <CreatedNewsComponent/>}
             <h1><b>Popular news among users</b></h1>
             <Divider />

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router";
+import { Navigate, useNavigate } from "react-router";
 import axios from 'axios';
 import { Button, Divider, Form, Input } from 'antd';
+import { ROUTE_PATHS } from "../../constants/path";
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const CreateNews = () => {
+    const navigate = useNavigate();
     const user = JSON.parse(localStorage.getItem('user'));
     const onClickHandler = async (value) => {
         if (user) {
@@ -16,6 +18,7 @@ const CreateNews = () => {
                     console.log(error.message);
                 });
         }
+        navigate(ROUTE_PATHS.HOME);
     }
 
     return (

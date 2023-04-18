@@ -20,6 +20,9 @@ const Review = () => {
             console.error(error);
         });
     }
+    const clickNews = (news) => {
+        navigate(`/news-detail/${news.newsID._id}`);
+    };
 
     useEffect(() => {
         getMyReview();
@@ -40,6 +43,7 @@ const Review = () => {
                 renderItem={(item) => (
                     <List.Item
                         key={item._id}
+                        onClick={() => clickNews(item)}
                         actions={[<a key="delete post" onClick={
                                 () => 
                                 axios.delete(`${BASE_URL}/user/${user._id}/review/${item.newsID._id}`)
